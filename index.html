@@ -1,0 +1,150 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="TableDragSelect Test">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>TableDragSelect Test</title>
+
+        <link rel="stylesheet" href="css/style.css">
+
+        <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="js/tabledragselect.js"></script>
+    </head>
+    <body>
+    	<div class="container">
+    		<h2>TableDragSelect</h2>
+
+	    	<div class="actions">
+	    		<a href="#" id="selectAll">Select All</a> |
+	    		<a href="#" id="selectNone">Select None</a> |
+	    		<a href="#" id="showSelected">Show Selected</a> |
+	    		Number of Items currently selected: <span id="numSelected">0</span>
+	    	</div>
+
+	        <div id="tableContainer">
+	        	
+	        	<table id="table1" class="tableDragSelect">
+	        		<thead>
+	        			<tr>
+	        				<th class="hidden">id</th>        				
+	        				<th>Column 1</th>
+	        				<th>Column 2</th>
+	        				<th>Column 3</th>
+	        				<th>Column 4</th>
+	        				<th>Column 5</th>
+	        				<th>Column 6</th>
+	        				<th>Column 7</th>
+	        				<th>Column 8</th>
+	        			</tr>
+	        		</thead>
+	        		<tbody>
+	        		</tbody>
+	        	</table>
+
+	        </div> <!-- end tableContainer -->
+
+    	</div> <!-- end container -->
+
+        <script>
+        	;$( function()
+        	{
+        		var tds;
+
+        		/*
+        		 * Load a table with random numbers between 1 and 10,000
+        		 *
+        		 * Input: 
+        		 *		object - table element, 
+        		 *		int # of columns, 
+        		 *		int # of rows to create,
+        		 *		boolean - true if first column is a hidden
+        		 */
+        		function loadTableRandomData( table, cols, rows, hiddenId )
+        		{
+        			var c, r, cell, row;
+
+        			if( cols > 0 && rows > 0 )
+        			{
+    					for( r = 0; r < rows; r++ )
+    					{
+    						row = $( "<tr></tr>");
+
+	        				for( c = 0; c < cols; c++ )
+	        				{
+		        				cell = $("<td></td>");
+
+	        					if( c == 0 && hiddenId )
+	        					{
+	        						$( cell ).html( r );
+	        						$( cell ).addClass( "hidden" );
+	        					}
+	        					else
+	        					{
+		        					$( cell ).text( Math.floor( Math.random() * 10000 ) );
+	        					}
+		        				
+		        				$( row ).append( cell );
+	    					}
+
+	    					$( table ).append( row );
+    					}
+        			}
+        		}
+
+        		var tdsMouseupCallback = function ()
+        		{
+        			var s = tds.getSelectedCount();
+        			$( "#numSelected" ).html( s );
+        		}
+
+        		loadTableRandomData( $( "table.tableDragSelect" ), 9, 100, true );
+
+        		var tds_options = {
+        			containerId: "tableContainer",
+        			mouseupCallback: tdsMouseupCallback
+        		};
+
+        		tds = new tableDragSelect( $( "#table1" ), tds_options );
+
+        		$( "#selectAll" ).click( 
+        			function()
+        			{ 
+        				tds.selectAll();
+        				return false; 
+        			} 
+        		);
+        		
+        		$( "#selectNone" ).click( 
+        			function()
+        			{ 
+        				tds.selectNone(); 
+        				return false; 
+        			} 
+        		);
+        		
+        		$( "#showSelected" ).click( function()
+        			{ 
+        				var si = tds.getSelectedItems(), i, items = [ ];
+        				
+        				if( si.length === 0)
+        				{
+	        				alert( "No rows selected" ); 
+        				}
+        				else
+        				{        					
+	        				for( i = 0; i < si.length; i++ )
+	        				{
+	        					items.push( $( si[ i ].cells[0]).text() );
+	        				}
+	        				alert( items.join( ) ); 
+	        			}
+	        				
+        				return false;
+        			} 
+        		);
+        	});
+
+        </script>
+    </body>
+</html>
