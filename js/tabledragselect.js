@@ -1,8 +1,10 @@
 /*
  * TableDragSelect
- * 
+ *
  * Enable selection of rows in a table just like in a select box by either clicking and dragging 
  * or using the shift and control/command keys.
+ * 
+ * @requires jQuery 1.9
  *
  * Usage: tds = new tableDragSelect( "tableId", options );
  *
@@ -292,7 +294,7 @@ tableDragSelect.prototype =
             }
             else
             {
-                self.selectNone ( table );
+                $( self.element ).find( "tbody tr" ).removeClass( self.options.cssSelected );
                 $( row ).toggleClass( self.options.cssSelected  );
             }
 
