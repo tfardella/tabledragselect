@@ -102,7 +102,7 @@ tableDragSelect.prototype =
                 isShiftPressed = true;
             }
 
-            if( e.which == 17 )
+            if( e.which == 17 || e.which == 91 || e.which == 93 )
             {
                 isCtrlPressed = true;
             }
@@ -117,7 +117,7 @@ tableDragSelect.prototype =
                 isCmdPressed = true;
             }
 
-//            debug ? ( console.log( "KeyDown - Shift: " + isShiftPressed + "  Ctrl: " + isCtrlPressed + "  Alt: " + isAltPressed + " Cmd: " + isCmdPressed ) ) : null;
+//            debug ? console.log( "KeyDown - Shift: " + isShiftPressed + "  Ctrl: " + isCtrlPressed + "  Alt: " + isAltPressed + " Cmd: " + isCmdPressed ) : null;
         }
 
         function keyUpHandler( e )
@@ -127,7 +127,7 @@ tableDragSelect.prototype =
                 isShiftPressed = false;
             }
 
-            if( e.which == 17 )
+            if( e.which == 17 || e.which == 91 || e.which == 93 )
             {
                 isCtrlPressed = false;
             }
@@ -142,7 +142,7 @@ tableDragSelect.prototype =
                 isCmdPressed = false;
             }
 
-//            debug ? console.log( "KeyUp - Shift: " + isShiftPressed + "  Ctrl: " + isCtrlPressed + "  Alt: " + isAltPressed + " Cmd: " + isCmdPressed ) : null;
+//            debug  ? console.log( "KeyUp - Shift: " + isShiftPressed + "  Ctrl: " + isCtrlPressed + "  Alt: " + isAltPressed + " Cmd: " + isCmdPressed ) : null;
         }
 
         function wheelHandler( e, delta, deltaX, deltaY )
